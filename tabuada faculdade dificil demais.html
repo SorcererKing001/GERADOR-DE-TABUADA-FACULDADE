@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Tabuada</title>
+  <style>
+    /* base inicio nao se perder */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #444;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #74b9ff;
+      outline: none;
+      box-shadow: 0 0 5px #74b9ff;
+    }
+
+    button {
+      background: #74b9ff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      background: #0984e3;
+      transform: scale(1.05);
+    }
+
+    .resultado {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .linha {
+      background: #f1f1f1;
+      padding: 8px 12px;
+      margin: 5px 0;
+      border-radius: 6px;
+      font-size: 16px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideUp 0.4s forwards;
+    }
+
+    /* Animaçoes entrada saída etc */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideUp {
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2> Gerador de Tabuada do Pedrão</h2>
+    <label for="numero">Digite um número de 1 a 10:</label><br>
+    <input type="number" id="numero" min="1" max="10" placeholder="Ex: 7">
+    <br>
+    <button onclick="gerarTabuada()">Gerar</button>
+    
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script>
+    function gerarTabuada() {
+      const num = parseInt(document.getElementById('numero').value);
+      const resultado = document.getElementById('resultado');
+      resultado.innerHTML = "";
+
+      if (isNaN(num) || num < 1 || num > 10) {
+        resultado.innerHTML = "<p style='color:red; font-weight:bold'> Epa, insira um número entre 1 e 10.</p>";
+        return;
+      }
+
+      resultado.innerHTML = `<h3 style="margin-bottom:10px; color:#333">Tabuada de ${num}:</h3>`;
+      let i = 1;
+      while (i <= 10) {
+        const linha = document.createElement("div");
+        linha.className = "linha";
+        linha.style.animationDelay = `${i * 0.1}s`; // atraso p/ efeito em cascata :D
+        linha.textContent = `${num} x ${i} = ${num * i}`;
+        resultado.appendChild(linha);
+        i++;
+      }
+    }
+  </script>
+</body>
+</html>
